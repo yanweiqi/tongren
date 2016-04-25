@@ -1,0 +1,512 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>phoenix-tongren</artifactId>
+		<groupId>com.ginkgocap.tongren</groupId>
+	    <!-- <version>1.0.0</version>-->
+		 <version>1.0.0-SNAPSHOT</version>
+	</parent>
+	
+	<artifactId>phoenix-tongren-provider</artifactId>
+	<name>${project.artifactId}</name>
+
+	<properties>
+		<skip_maven_deploy>true</skip_maven_deploy>
+	</properties>
+
+	<dependencies>
+		<!-- LOGGING begin -->
+		<!-- slf4j -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+
+		<!-- logback -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+		</dependency>
+
+		<!-- 代码直接调用log4j会被桥接到slf4j -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>log4j-over-slf4j</artifactId>
+		</dependency>
+
+		<!-- 代码直接调用commons-logging会被桥接到slf4j -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+		</dependency>
+
+		<!-- 代码直接调用java.util.logging会被桥接到slf4j -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jul-to-slf4j</artifactId>
+		</dependency>
+
+		<!-- log4jdbc -->
+		<dependency>
+			<groupId>com.googlecode.log4jdbc</groupId>
+			<artifactId>log4jdbc</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<!-- LOGGING end -->
+		
+		<!-- TEST begin -->
+		<!-- junit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-all</artifactId>
+		</dependency>
+		
+		<!-- assertj -->
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- 人脉api -->
+		<dependency>
+            <groupId>com.ginkgocap.ywxt</groupId>
+			<artifactId>phoenix-person-api</artifactId>
+			<version>1.0.3</version>
+		</dependency>
+		<!-- 知识api -->
+		<dependency>
+			<artifactId>phoenix-knowledge-api</artifactId>
+			<groupId>com.ginkgocap.ywxt</groupId>
+			<!-- 	 <version>app-1.0.0-SNAPSHOT</version> -->
+			<version>2.1.0</version>
+		</dependency>
+		<!-- mockito -->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-module-junit4</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-api-mockito</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.mockito</groupId>
+					<artifactId>mockito-all</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+		</dependency>				
+		<!-- TEST end -->
+	
+		<dependency>
+			<groupId>com.ginkgocap.ywxt</groupId>
+			<artifactId>phoenix-framework-dal</artifactId>
+		</dependency>
+		
+		<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-expression</artifactId>
+		</dependency>
+		<!-- gintong affair api -->
+		<dependency>
+			<groupId>com.ginkgocap.ywxt</groupId>
+			<artifactId>phoenix-affair-api</artifactId>
+			<version>1.0.3</version> 
+		</dependency>
+		
+		<!-- spring aop start-->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+		</dependency>
+		<!-- spring aop start -->
+		
+		<!--spring jms start -->
+		<dependency>
+		  <groupId>org.springframework</groupId>
+		  <artifactId>spring-jms</artifactId>
+		</dependency>
+		<!--spring jms end -->
+		<!-- AOP Start-->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<scope>runtime</scope>
+		</dependency> 
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjtools</artifactId>
+		</dependency>			
+		<!-- AOP End-->		
+			
+		<!-- spring mongodb mapper -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-mongodb</artifactId>
+		</dependency>
+		<!-- spring mongodb mapper end -->
+		<!-- mongodb- -->
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+		</dependency>
+		<!-- mongodb end -->
+		
+		<!-- dubbo 服务注册方式 begin -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>dubbo</artifactId>		
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.netty</groupId>
+			<artifactId>netty</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.javassist</groupId>
+			<artifactId>javassist</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.github.sgroschupf</groupId>
+			<artifactId>zkclient</artifactId>
+		</dependency>
+		<!-- dubbo 服务注册方式 end -->
+		
+		<dependency>
+		    <groupId>com.ginkgocap.tongren</groupId>
+			<artifactId>phoenix-tongren-api</artifactId>
+			<version>${tongren.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>hibernate-core</artifactId>
+					<groupId>org.hibernate</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.ginkgocap.ywxt</groupId>
+			<artifactId>phoenix-util</artifactId>
+			<version>5.6.3</version>
+			<exclusions>
+				<exclusion>
+				<artifactId>spring-core</artifactId>
+				<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-webmvc</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>hibernate-jpa-2.0-api</artifactId>
+					<groupId>org.hibernate.javax.persistence</groupId>
+				</exclusion>
+				<exclusion>
+				    <artifactId>spring-web</artifactId>
+				    <groupId>org.springframework</groupId>
+				</exclusion>
+			</exclusions>	
+		</dependency>
+		<dependency>
+			<groupId>com.ginkgocap.ywxt</groupId>
+			<artifactId>phoenix-entire-api</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>phoenix-cache</artifactId>
+					<groupId>com.ginkgocap.ywxt</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-expression</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-data-mongodb</artifactId>
+					<groupId>org.springframework.data</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>hibernate-entitymanager</artifactId>
+					<groupId>org.hibernate</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>hibernate-validator</artifactId>
+					<groupId>org.hibernate</groupId>
+				</exclusion>
+				<!--  
+				<exclusion>
+					<artifactId>phoenix-util</artifactId>
+					<groupId>com.ginkgocap.ywxt</groupId>
+				</exclusion>
+				-->
+				<exclusion>
+					<artifactId>phoenix-util</artifactId>
+					<groupId>com.ginkgocap.ywxt</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.ginkgocap.ywxt</groupId>
+			<artifactId>phoenix-file-api</artifactId>		
+		</dependency>
+		<!-- active mq start -->
+		<dependency>
+		  <groupId>org.apache.activemq</groupId>
+		  <artifactId>activemq-broker</artifactId>
+		</dependency>		
+		<dependency>
+		  <groupId>org.apache.activemq</groupId>
+		  <artifactId>activemq-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-spring</artifactId>
+		</dependency>
+		<!-- active mq end -->
+		
+		<!-- rocketmq start -->
+		<dependency>
+			<groupId>com.alibaba.rocketmq</groupId>
+			<artifactId>rocketmq-client</artifactId>
+		</dependency>
+		<!-- rocketmq end -->
+		<dependency>
+			<groupId>com.gintong</groupId>
+			<artifactId>phoenix-rocketmq-api</artifactId>
+			<version>1.0.0</version>
+		</dependency>	
+		<dependency>
+			<groupId>com.ginkgocap.parasol</groupId>
+			<artifactId>parasol-directory-api</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		
+		<dependency>
+		  <groupId>com.ginkgocap.parasol</groupId>
+		  <artifactId>parasol-tags-api</artifactId>
+		  <version>1.0.0</version>
+		</dependency>
+
+	<dependency>
+		<groupId>org.mybatis</groupId>
+		<artifactId>mybatis</artifactId>
+	</dependency>
+	
+	<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+		</dependency>
+	</dependencies>
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/baseResources</directory>
+				<filtering>true</filtering>
+			</resource>
+		
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+			
+			<resource>
+				<directory>src/main/assembly</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>src/main/baseResources</directory>
+				<filtering>true</filtering>
+			</testResource>
+			<testResource>
+				<filtering>true</filtering>
+				<directory>src/main/resources</directory>
+			</testResource>
+			<testResource>
+				<directory>src/main/assembly</directory>
+				<filtering>true</filtering>
+			</testResource>
+		</testResources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>2.7</version>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+			<!-- 打jar包时候过滤掉dubbo.properties文件，使用最后发布包里conf下的属性文件 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<excludes>
+						<excludes>**/conf/**</excludes>
+						<excludes>**/assembly.xml</excludes>
+					</excludes>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>unpack</id>
+						<phase>package</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>com.ginkgocap.ywxt</groupId>
+									<artifactId>phoenix-util</artifactId>
+									<version>${util.dependencied}</version>
+									<outputDirectory>${project.build.directory}/dubbo</outputDirectory>
+									<includes>META-INF/assembly/**</includes>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptor>src/main/assembly/assembly.xml</descriptor>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	<profiles>
+		
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+				<tongren.data.searchUrl>http://192.168.130.221:8091/</tongren.data.searchUrl>
+				<tongren.data.pushUrl>http://192.168.130.119:8090/</tongren.data.pushUrl>
+				<tongren.memcathed.host>192.168.101.22</tongren.memcathed.host>
+				<tongren.memcathed.port1>11211</tongren.memcathed.port1>
+				<tongren.memcathed.port2>11212</tongren.memcathed.port2>
+				<tongren.memcathed.timeout>500</tongren.memcathed.timeout>
+				<tongren.memcathed.maxActive>2</tongren.memcathed.maxActive>
+				<tongren.memcathed.maxIdle>2</tongren.memcathed.maxIdle>
+				<tongren.memcathed.maxWait>-1</tongren.memcathed.maxWait>
+				<redis.host>192.168.101.131</redis.host>
+				<redis.port>6379</redis.port>
+				<mongodb.address>192.168.101.131:27017</mongodb.address>
+				<mongodb.database>tongren</mongodb.database>
+				
+				<tongren.jdbc.url>jdbc:mysql://192.168.101.131:3306/phoenix_tongren?createDatabaseIfNotExist=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf8&amp;amp;zeroDateTimeBehavior=convertToNull&amp;amp;autoReconnect=true</tongren.jdbc.url>
+				<tongren.jdbc.username>zhangwei</tongren.jdbc.username>
+				<tongren.jdbc.password>zhangwei</tongren.jdbc.password>
+
+				<dubbo.application.name>phoenix-tongren-dubbo</dubbo.application.name>
+				<dubbo.protocol.name>dubbo</dubbo.protocol.name>
+				<dubbo.registry.address>zookeeper://192.168.101.131:2181?client=zkclient</dubbo.registry.address>
+				<dubbo.protocol.port>7011</dubbo.protocol.port>
+				
+				<logback.path>d:/log/</logback.path>
+				
+				<!-- 应用端的挂载配置路径 -->
+				<linux.mount.path>/webserver/upload/knowledge</linux.mount.path>
+				<webserver.path>/root/apache-tomcat-6.0.36/webapps</webserver.path>
+				<gen.path>/webserver/upload/knowledge/GENFILE</gen.path>
+				<nginx.root>http://file.dev.gintong.com</nginx.root>
+				<!-- mq config -->
+				<tongren.rocketmq.nameserver>192.168.101.16:9876;192.168.101.131:9876</tongren.rocketmq.nameserver>
+				<tongren.rocketmq.group>tongren_group</tongren.rocketmq.group>
+				<tongren.rocketmq.instancename>tongren_instancename</tongren.rocketmq.instancename>
+				<tongren.rocketmq.topic>tongren_topic</tongren.rocketmq.topic>
+				<!-- mq config -->
+				<!-- file config -->
+				<tongren.file.remove_file_root_path></tongren.file.remove_file_root_path>
+				<tongren.file.file_encoding>GBK</tongren.file.file_encoding>
+				<tongren.file.ftp_user_name>admin</tongren.file.ftp_user_name>
+				<tongren.file.ftp_password>admingintwww123</tongren.file.ftp_password>
+				<tongren.file.ftp_ip>192.168.101.12</tongren.file.ftp_ip>
+				<tongren.file.ftp_url>file.gintong.com</tongren.file.ftp_url>
+				<tongren.file.ftp_port>21</tongren.file.ftp_port>
+				<tongren.file.encoding>UTF-8</tongren.file.encoding>
+				<tongren.file.download_path>F:/</tongren.file.download_path>
+				<tongren.file.ftp_full_url>http://file.gintong.com/tongren</tongren.file.ftp_full_url>
+				<tongren.file.openofficeurl>192.168.101.131:8100</tongren.file.openofficeurl>
+				<!-- http://dev.gintong.com/cross 域名方式 -->
+				<tongren.related.url>http://192.168.120.234:3378</tongren.related.url>
+				<!-- file config -->
+			</properties>
+		</profile>
+
+		<profile>
+			<id>delivery</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<filters>
+					<filter>${sa.config.file}</filter>
+				</filters>
+			</build>
+		</profile>
+	</profiles>
+</project>

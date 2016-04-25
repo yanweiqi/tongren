@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="GB2312"?>
+<root>
+	<datasources>
+ 
+		<ds name="idCenterDS" 
+	        driverClassName="com.mysql.jdbc.Driver" 
+	        url="${tongren.jdbc.url}"
+			username="${tongren.jdbc.username}"
+			password="${tongren.jdbc.password}"
+	        maxActive="200" 
+	        maxIdle="50" 
+	        maxWait="1000" 
+        />
+     
+		<ds name="phoenix_tongren" 
+			driverClassName="com.mysql.jdbc.Driver" 
+			url="${tongren.jdbc.url}"
+			username="${tongren.jdbc.username}" 
+			password="${tongren.jdbc.password}"
+			maxActive="200" 
+			maxIdle="50" 
+			maxWait="1000" 
+		/>
+
+	</datasources>
+	
+	<groups>
+		<group name="g1" master="phoenix_tongren" salve="phoenix_tongren"/>	
+	</groups>
+
+</root>
+

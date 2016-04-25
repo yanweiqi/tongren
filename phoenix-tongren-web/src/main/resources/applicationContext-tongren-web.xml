@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+	<description>桐人applicationContext文件列表</description>
+
+	<import resource="classpath:cache/applicationContext-cache.xml" />
+	<import resource="classpath:dubbo/tongren-web-dubbo-consumer.xml" />
+	<import resource="classpath:tongren-dubbo-consumer.xml"/>
+	<import resource="classpath:user-dubbo-consumer.xml" />
+	<import resource="classpath:metadata-dubbo-consumer.xml" />
+	<import resource="classpath:file-dubbo-consumer.xml" />
+	<import resource="classpath:sms-dubbo-consumer.xml" />
+	<!--  
+	<import resource="classpath:search-dubbo-consumer.xml" />
+	-->
+	<!--  
+	<import resource="classpath:security/applicationContext-shiro-demo.xml"/>
+    -->
+</beans>

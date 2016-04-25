@@ -1,0 +1,704 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <parent>
+	<artifactId>phoenix-tongren</artifactId>
+	<groupId>com.ginkgocap.tongren</groupId>
+	 <version>1.0.0-SNAPSHOT</version> 
+	<!--<version>1.0.0</version>-->
+  </parent>
+  
+  <groupId>com.ginkgocap.ywxt</groupId>
+  <artifactId>phoenix-tongren-web</artifactId>
+  <packaging>war</packaging>
+  
+  <name>phoenix-tongren-web</name>
+  
+  <!-- 版本定义 -->
+  <properties>
+  	 <servlet.version>3.0.1</servlet.version>
+	 <jstl.version>1.2</jstl.version>
+	 <shiro.version>1.2.3</shiro.version>
+     <cxf.version>2.7.11</cxf.version>
+     <jackson.version>2.4.0</jackson.version>
+     <activemq.version>5.7.0</activemq.version>
+     <spymemcached.version>2.11.2</spymemcached.version>
+     <ehcache.version>2.6.9</ehcache.version>
+     <jolokia.version>1.2.1</jolokia.version>
+     <httpclient.version>4.3.4</httpclient.version>
+     <dozer.version>5.5.1</dozer.version>
+     <jetty.version>7.6.15.v20140411</jetty.version>
+     <entire.version>5.6.3-SNAPSHOT</entire.version>
+     <jedis.version>2.4.2</jedis.version>
+     <sitemesh.version>2.4.2</sitemesh.version>
+  </properties>
+  <dependencies>
+  	<dependency>
+		    <groupId>com.ginkgocap.tongren</groupId>
+			<artifactId>phoenix-tongren-api</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>hibernate-core</artifactId>
+					<groupId>org.hibernate</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	<!-- dubbo 服务start -->
+	<dependency>
+		<groupId>com.alibaba</groupId>
+		<artifactId>dubbo</artifactId>
+		<exclusions>
+			<exclusion>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring</artifactId>
+			</exclusion>
+		</exclusions>
+	</dependency>
+	<dependency>
+		<groupId>org.jboss.netty</groupId>
+		<artifactId>netty</artifactId>
+		
+	</dependency>
+	<dependency>
+		<groupId>org.javassist</groupId>
+		<artifactId>javassist</artifactId>
+		
+	</dependency>
+	<dependency>
+		<groupId>org.apache.zookeeper</groupId>
+		<artifactId>zookeeper</artifactId>
+		<exclusions>
+			<exclusion>
+				<artifactId>jms</artifactId>
+				<groupId>javax.jms</groupId>
+			</exclusion>
+			<exclusion>
+				<artifactId>log4j</artifactId>
+				<groupId>log4j</groupId>
+			</exclusion>
+		</exclusions>
+	</dependency>
+	<dependency>
+		<groupId>com.github.sgroschupf</groupId>
+		<artifactId>zkclient</artifactId>
+		<exclusions>
+			<exclusion>
+				<artifactId>log4j</artifactId>
+				<groupId>log4j</groupId>
+			</exclusion>
+		</exclusions>
+	</dependency>
+	<!-- dubbo 服务 end-->
+	
+	<!-- Spring basic begin -->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context-support</artifactId>
+	</dependency>
+	<!-- Spring basic end -->
+	
+	<!-- AOP begin -->
+	<dependency>
+		<groupId>org.aspectj</groupId>
+		<artifactId>aspectjrt</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.aspectj</groupId>
+		<artifactId>aspectjweaver</artifactId>
+	</dependency>
+	<!-- AOP end -->
+	
+	<!-- Spring AOP start-->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-aop</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-aspects</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.aspectj</groupId>
+		<artifactId>aspectjtools</artifactId>
+	</dependency>	
+	<!-- Spring AOP end -->
+	
+	<!-- Spring WEB MVC begin -->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-webmvc</artifactId>
+	</dependency>
+
+	<dependency>
+		<groupId>javax.servlet</groupId>
+		<artifactId>jstl</artifactId>
+		<version>${jstl.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>javax.servlet</groupId>
+		<artifactId>javax.servlet-api</artifactId>
+		<version>${servlet.version}</version>
+	</dependency>
+	<!-- Spring WEB MVC end -->
+	
+	<!-- SECURITY begin -->
+	<dependency>
+		<groupId>org.apache.shiro</groupId>
+		<artifactId>shiro-spring</artifactId>
+		<version>${shiro.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.shiro</groupId>
+		<artifactId>shiro-ehcache</artifactId>
+		<version>${shiro.version}</version>
+	</dependency>
+	<!-- SECURITY end -->
+	<!-- tongren search api 
+	<dependency>
+	  <groupId>com.ginkgocap.search</groupId>
+	  <artifactId>phoenix-search-tongren-api</artifactId>
+	  <version>0.0.1-SNAPSHOT</version>
+	</dependency> -->
+	<!-- SOAP begin -->
+	<dependency>
+		<groupId>org.apache.cxf</groupId>
+		<artifactId>cxf-rt-frontend-jaxws</artifactId>
+		<version>${cxf.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.cxf</groupId>
+		<artifactId>cxf-rt-transports-http</artifactId>
+		<version>${cxf.version}</version>
+	</dependency>
+	<!-- SOAP end -->
+
+	<!-- JAX-RS begin -->
+	<dependency>
+		<groupId>org.apache.cxf</groupId>
+		<artifactId>cxf-rt-frontend-jaxrs</artifactId>
+		<version>${cxf.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>com.fasterxml.jackson.jaxrs</groupId>
+		<artifactId>jackson-jaxrs-json-provider</artifactId>
+		<version>${jackson.version}</version>
+	</dependency>
+	<!-- JAX-RS end -->	
+	
+	<!-- JMS begin -->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-jms</artifactId>
+	</dependency>
+
+	<dependency>
+		<groupId>org.apache.activemq</groupId>
+		<artifactId>activemq-core</artifactId>
+		<version>${activemq.version}</version>
+	</dependency>
+	<!-- JMS end -->
+	
+	<!-- CACHE begin -->
+	<dependency>
+		<groupId>net.spy</groupId>
+		<artifactId>spymemcached</artifactId>
+		<version>${spymemcached.version}</version>
+	</dependency>
+
+	<dependency>
+		<groupId>com.thimbleware.jmemcached</groupId>
+		<artifactId>jmemcached-core</artifactId>
+		<version>1.0.0</version>
+	</dependency>
+
+	<dependency>
+		<groupId>net.sf.ehcache</groupId>
+		<artifactId>ehcache-core</artifactId>
+		<version>${ehcache.version}</version>
+	</dependency>
+	<!-- CACHE end -->	
+	
+	<!-- jolokia Restful JMX -->
+	<dependency>
+		<groupId>org.jolokia</groupId>
+		<artifactId>jolokia-core</artifactId>
+		<version>${jolokia.version}</version>
+	</dependency>
+	
+	<!-- JSON begin-->
+	<dependency>
+		<groupId>com.fasterxml.jackson.core</groupId>
+		<artifactId>jackson-databind</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>com.fasterxml.jackson.module</groupId>
+		<artifactId>jackson-module-jaxb-annotations</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>com.fasterxml.jackson.datatype</groupId>
+		<artifactId>jackson-datatype-joda</artifactId>
+	</dependency>	
+	<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.4</version>
+	</dependency>
+	<!-- JSON end-->
+	
+	<!-- XML begin -->
+	<dependency>
+		<groupId>dom4j</groupId>
+		<artifactId>dom4j</artifactId>
+		<version>1.6.1</version>
+	</dependency>
+
+	<dependency>
+		<groupId>jaxen</groupId>
+		<artifactId>jaxen</artifactId>
+		<version>1.1.4</version>
+	</dependency>
+	<!-- XML end -->
+	<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.2.2</version>
+		</dependency>
+	<!-- LOGGING begin -->
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>slf4j-api</artifactId>
+		    <exclusions>
+            <exclusion>
+                <groupId>org.slf4j</groupId>
+                <artifactId>log4j-over-slf4j</artifactId>
+            </exclusion>
+        </exclusions>
+	</dependency>
+
+	<dependency>
+		<groupId>ch.qos.logback</groupId>
+		<artifactId>logback-classic</artifactId>
+	</dependency>
+
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>log4j-over-slf4j</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>jcl-over-slf4j</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>jul-to-slf4j</artifactId>
+	</dependency>
+
+	<dependency>
+		<groupId>com.googlecode.log4jdbc</groupId>
+		<artifactId>log4jdbc</artifactId>
+	</dependency>
+	<!-- LOGGING end -->	
+		
+	<!-- GENERAL UTILS begin -->
+	<dependency>
+		<groupId>org.apache.commons</groupId>
+		<artifactId>commons-lang3</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>commons-io</groupId>
+		<artifactId>commons-io</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>commons-codec</groupId>
+		<artifactId>commons-codec</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>com.google.guava</groupId>
+		<artifactId>guava</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>com.google.code.gson</groupId>
+		<artifactId>gson</artifactId>		
+	</dependency>
+	<dependency>
+		<groupId>joda-time</groupId>
+		<artifactId>joda-time</artifactId>
+	</dependency>
+	<!-- GENERAL UTILS end -->	
+		
+	<!-- httpclient -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+			<version>4.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcomponents-client</artifactId>
+			<version>4.3.1</version>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>3.1</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>commons-logging</artifactId>
+					<groupId>commons-logging</groupId>
+				</exclusion>
+				<exclusion>
+					<groupId>commons-codec</groupId>
+					<artifactId>commons-codec</artifactId>
+				</exclusion>
+
+			</exclusions>
+		</dependency>
+	
+	<!-- OTHER TOOLS begin -->
+	<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+			<version>4.3</version>
+		</dependency>
+	<dependency>
+		<groupId>org.apache.httpcomponents</groupId>
+		<artifactId>fluent-hc</artifactId>
+		<version>${httpclient.version}</version>
+		<exclusions>
+			<exclusion>
+				<groupId>commons-logging</groupId>
+				<artifactId>commons-logging</artifactId>
+			</exclusion>
+		</exclusions>
+	</dependency>
+
+	<dependency>
+		<groupId>net.sf.dozer</groupId>
+		<artifactId>dozer</artifactId>
+		<version>${dozer.version}</version>
+		<exclusions>
+			<exclusion>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+			</exclusion>
+		</exclusions>
+	</dependency>
+
+	<!-- email -->
+	<dependency>
+		<groupId>javax.mail</groupId>
+		<artifactId>mail</artifactId>
+		<version>1.4.7</version>
+	</dependency>
+	<!-- OTHER TOOLS end -->
+
+	<!-- TEST begin -->
+	<dependency>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+		<!-- for xxxDemo class -->
+		<scope>compile</scope>
+	</dependency>
+
+	<dependency>
+		<groupId>org.assertj</groupId>
+		<artifactId>assertj-core</artifactId>
+		<scope>compile</scope>
+	</dependency>
+
+	<dependency>
+		<groupId>org.mockito</groupId>
+		<artifactId>mockito-core</artifactId>
+		<exclusions>
+		   <exclusion>
+		     	<groupId>org.hamcrest</groupId>
+				<artifactId>hamcrest-core</artifactId>
+		   </exclusion>
+		</exclusions>
+	</dependency>
+
+	<dependency>
+		<groupId>org.powermock</groupId>
+		<artifactId>powermock-module-junit4</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.powermock</groupId>
+		<artifactId>powermock-api-mockito</artifactId>
+	</dependency>
+	<!-- gintong affair api -->
+		<dependency>
+			<groupId>com.ginkgocap.ywxt</groupId>
+			<artifactId>phoenix-affair-api</artifactId>
+			<version>1.0.3</version> 
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-test</artifactId>
+		<!-- for xxxDemo class -->
+		<scope>compile</scope>
+	</dependency>
+
+	<!-- jetty for functional test and executable war -->
+	<dependency>
+		<groupId>org.eclipse.jetty.aggregate</groupId>
+		<artifactId>jetty-webapp</artifactId>
+		<version>${jetty.version}</version> 
+		<scope>provided</scope>
+	</dependency>
+	<dependency>
+		<groupId>org.eclipse.jetty</groupId>
+		<artifactId>jetty-jsp</artifactId>
+		<version>${jetty.version}</version>
+		<scope>provided</scope>
+	</dependency>
+	<dependency>
+	    <groupId>org.mortbay.jetty</groupId>
+	    <artifactId>jetty</artifactId>
+	    <version>6.1.5</version>
+	</dependency>
+	
+	<!-- h2 如果生产数据库不是H2，解开下面的注释
+	<dependency>
+		<groupId>com.h2database</groupId>
+		<artifactId>h2</artifactId>
+	</dependency>
+	-->
+
+	<!-- mail server simulator -->
+	<dependency>
+		<groupId>com.icegreen</groupId>
+		<artifactId>greenmail</artifactId>
+		<version>1.3.1b</version>
+	</dependency>
+
+	<dependency>
+		<groupId>org.scalatest</groupId>
+		<artifactId>scalatest_2.10</artifactId>
+		<version>2.0</version>
+		<scope>test</scope>
+	</dependency>
+	<dependency>
+		<groupId>com.jayway.jsonpath</groupId>
+		<artifactId>json-path</artifactId>
+		<version>2.0.0</version>
+		<scope>test</scope>
+	</dependency>
+	<dependency>
+		<groupId>com.jayway.jsonpath</groupId>
+		<artifactId>json-path-assert</artifactId>
+		<version>2.0.0</version>
+		<scope>test</scope>
+	</dependency>
+	
+	
+	<!-- TEST end -->	
+	
+	
+	<dependency>
+		<groupId>com.ginkgocap.ywxt</groupId>
+		<artifactId>phoenix-cache</artifactId>
+		<version>${entire.version}</version>
+		<exclusions>
+			<exclusion>
+				<artifactId>jedis</artifactId>
+				<groupId>redis.clients</groupId>
+			</exclusion>
+		</exclusions>
+	</dependency>
+	
+	<dependency>
+		<groupId>com.ginkgocap.ywxt</groupId>
+		<artifactId>phoenix-util</artifactId>
+		<version>${entire.version}</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>com.ginkgocap.ywxt</groupId>
+		<artifactId>phoenix-entire-api</artifactId>
+	</dependency>
+	
+	<dependency>
+		<groupId>redis.clients</groupId>
+		<artifactId>jedis</artifactId>
+		<version>${jedis.version}</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>com.google.guava</groupId>
+		<artifactId>guava</artifactId>
+	</dependency>
+
+	<!-- sitemesh -->
+	<dependency>
+		<groupId>opensymphony</groupId>
+		<artifactId>sitemesh</artifactId>
+		<version>${sitemesh.version}</version>
+		<scope>runtime</scope>
+	</dependency>				
+  	<!--  -->
+  	<dependency>  
+         <groupId>jmagick</groupId>
+         <artifactId>jmagick</artifactId>
+         <version>6.2.4</version>  
+    </dependency> 
+    
+    <dependency>
+		<groupId>cglib</groupId>
+		<artifactId>cglib</artifactId>
+		<version>3.1</version>
+	</dependency>
+	
+	<dependency>
+	  <groupId>net.sourceforge.jexcelapi</groupId>
+	  <artifactId>jxl</artifactId>
+	  <version>2.6.3</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>com.ginkgocap.ywxt</groupId>
+		<artifactId>phoenix-entire-api</artifactId>
+		<version>${entire.version}</version>
+	</dependency>
+
+	<dependency>
+		<groupId>org.apache.httpcomponents</groupId>
+		<artifactId>httpmime</artifactId>
+		<version>4.0.3</version>
+	</dependency>
+	
+	<dependency>
+	  <groupId>com.artofsolving</groupId>
+	  <artifactId>jodconverter</artifactId>
+	  <version>2.2.1</version>
+	</dependency>
+
+  </dependencies>
+  
+  <dependencyManagement>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-framework-bom</artifactId>
+			<version>${spring.version}</version>
+			<type>pom</type>
+			<scope>import</scope>
+		</dependency>
+	</dependencies>
+  </dependencyManagement>
+  
+  <build>
+	<finalName>phoenix-tongren-web</finalName>
+		<resources>
+			<resource>
+				<directory>src/main/baseResources</directory>
+				<filtering>true</filtering>
+			</resource>
+		
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+			
+			<resource>
+				<directory>src/main/assembly</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>src/main/baseResources</directory>
+				<filtering>true</filtering>
+			</testResource>
+			<testResource>
+				<filtering>true</filtering>
+				<directory>src/main/resources</directory>
+			</testResource>
+			<testResource>
+				<directory>src/main/assembly</directory>
+				<filtering>true</filtering>
+			</testResource>
+		</testResources>
+  </build>
+
+  <profiles>
+	<profile>
+		<id>dev</id>
+		<activation>
+			<activeByDefault>false</activeByDefault>
+		</activation>
+		<properties>
+			<user.cache.expiredTime>86400</user.cache.expiredTime>
+			<user.cache.validationInterval>1800000</user.cache.validationInterval> 
+			<user.session.timeout>28800000</user.session.timeout> 
+			<user.cache.address>192.168.101.131:11211</user.cache.address> 
+			<!--  
+				<redis.host>192.168.101.42</redis.host> //仿真地址
+			-->
+			<redis.host>192.168.101.131</redis.host>
+			<redis.port>6379</redis.port> 
+			
+			<upload.path>/tmp/upload</upload.path>
+			<log4j.level>info</log4j.level>
+			<log4j.path>e:/tmp/logs</log4j.path>
+	  		<images.root>http://192.168.101.90:777/resources/images/v3/</images.root>
+			<nginx.root>http://file.dev.gintong.com</nginx.root>
+			<nfs.home>/webserver/upload</nfs.home>
+			
+			<dubbo.application.name>phoenix-tongren-web-dubbo</dubbo.application.name>
+			<dubbo.protocol.name>dubbo</dubbo.protocol.name>
+			<dubbo.registry.address>zookeeper://192.168.101.131:2181?client=zkclient</dubbo.registry.address>
+			<dubbo.protocol.port>7011</dubbo.protocol.port>
+			
+			<!-- 大数据接口 -->
+			<bigdata.query.host>http://192.168.101.14:8090</bigdata.query.host>
+			<ftp.conf.path>dev_ftp.properties</ftp.conf.path>
+		</properties>
+	</profile>
+
+	<profile>
+		<id>delivery</id>
+		<activation>
+			<activeByDefault>false</activeByDefault>
+		</activation>
+		<build>
+			<filters>
+				<filter>${sa.config.file}</filter>
+			</filters>
+		</build>
+	</profile>
+  </profiles>
+	
+  <repositories>
+	<repository>
+		<id>nexus</id>
+		<name>Team Nexus Repository</name>
+		<url>http://192.168.101.89:8081/nexus/content/groups/public</url>
+		<snapshots>
+			<enabled>true</enabled>
+			<updatePolicy>always</updatePolicy>
+			<checksumPolicy>ignore</checksumPolicy>
+		</snapshots>
+		<releases>
+			<enabled>true</enabled>
+			<updatePolicy>always</updatePolicy>
+			<checksumPolicy>ignore</checksumPolicy>
+		</releases>
+	</repository>
+	<repository>  
+	  <id>sonatype</id>
+	  <name>Maven Repository Sonatype</name> 
+	  <url>http://repository.sonatype.org/content/groups/public/</url>
+	  <releases><enabled>true</enabled></releases>  
+	  <snapshots><enabled>false</enabled></snapshots>  
+	</repository>
+  </repositories>
+</project>

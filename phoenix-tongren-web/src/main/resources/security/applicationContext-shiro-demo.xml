@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd"
+	default-lazy-init="true">
+
+	<description>Shiro Configuration</description>
+	
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm"  ref="shiroDbRealm" />
+		<property name="cacheManager" ref="shiroEhcacheManager" />
+		<property name="sessionManager" ref="sessionManager"/>
+	</bean>
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<property name="loginUrl" value="/login" />
+		<property name="successUrl" value="/" />
+		<property name="filterChainDefinitions">
+			<value>
+				/login = anon
+				/logout = logout
+				/account/** = user
+				/api/secure/** = authcBasic
+			</value>
+		</property>
+	</bean>
+	
+	<!-- 用户授权信息Cache, 采用EhCache  authc-->
+	<bean id="shiroEhcacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<property name="cacheManagerConfigFile" value="classpath:security/ehcache-shiro.xml"/>
+	</bean>
+	
+    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+        <property name="sessionDAO" ref="redisSessionDAO" />
+    </bean>
+	
+	<bean id="redisSessionDAO" class="com.ginkgocap.tongren.cache.util.RedisSessionDAO">
+        <property name="redisManager" ref="redisManager"/>
+    </bean>
+    
+    <bean id="redisManager" class="com.ginkgocap.tongren.cache.util.RedisManager">
+    	<!-- demo -->
+        <property name="host"          value="${redis.host}"/>
+        <property name="port"          value="${redis.port}"/>
+        <property name="expiredTime"   value="${user.cache.expiredTime}"/>
+        <property name="timeout"       value="${user.session.timeout}"/>
+    </bean>
+	
+	<bean id="shiroDbRealm" class="com.ginkgocap.tongren.security.service.ShiroDbRealm"/>
+	
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+	
+	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor">
+		<property name="proxyTargetClass" value="true"/>
+	</bean>
+	
+	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean>
+</beans>

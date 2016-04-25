@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://code.alibabatech.com/schema/dubbo 
+	http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">
+	<!-- 需要单独注释掉此service类，打成jar提供给手机端调用否则会与其他服务提供者冲突，web端则放开此方法 -->
+	
+	<!-- 
+	<dubbo:reference id="demandService" interface="com.ginkgocap.ywxt.demand.service.DemandService" version="1.0.0" />
+	 -->
+	<dubbo:reference id="tongRenOrganizationService" interface="com.ginkgocap.tongren.organization.manage.service.TongRenOrganizationService" version="1.0.0">
+	     <dubbo:method name="create" timeout="20000" retries="0"/>
+	</dubbo:reference>
+	
+	<dubbo:reference id="organizationMemberService"  interface="com.ginkgocap.tongren.organization.manage.service.OrganizationMemberService" version="1.0.0"/>
+	<dubbo:reference id="messageService" interface="com.ginkgocap.tongren.organization.message.service.MessageService" version="1.0.0"/>
+	<dubbo:reference id="reviewGenreService" interface="com.ginkgocap.tongren.organization.review.service.ReviewGenreService"  version="1.0.0"/>
+	<dubbo:reference id="reviewObjectService" interface="com.ginkgocap.tongren.organization.review.service.ReviewObjectService"  version="1.0.0"/>
+	<dubbo:reference id="reviewProcessService"  interface="com.ginkgocap.tongren.organization.review.service.ReviewProcessService" version="1.0.0"/>
+	<dubbo:reference id="reviewRecordsService" interface="com.ginkgocap.tongren.organization.review.service.ReviewRecordsService"  version="1.0.0"/>
+	<dubbo:reference id="reviewApplicationService" interface="com.ginkgocap.tongren.organization.review.service.ReviewApplicationService"  version="1.0.0"/>
+	<dubbo:reference id="organizationRoleService" interface="com.ginkgocap.tongren.organization.manage.service.OrganizationRoleService"  version="1.0.0"/>
+	<dubbo:reference id="organizationRoleAuthorityService" interface="com.ginkgocap.tongren.organization.authority.service.OrganizationRoleAuthorityService" version="1.0.0"/>
+	<dubbo:reference id="organizationAuthorityService" interface="com.ginkgocap.tongren.organization.authority.service.OrganizationAuthorityService" version="1.0.0"/>
+	<dubbo:reference id="attendanceRecordsService" interface="com.ginkgocap.tongren.organization.attendance.service.AttendanceRecordsService" version="1.0.0"/>
+	<dubbo:reference id="attendanceSystemService" interface="com.ginkgocap.tongren.organization.attendance.service.AttendanceSystemService" version="1.0.0"/>
+	<dubbo:reference id="organizationMemberRoleService"  interface="com.ginkgocap.tongren.organization.manage.service.OrganizationMemberRoleService" version="1.0.0"/>
+	<dubbo:reference id="resourcesService"  interface="com.ginkgocap.tongren.resources.service.ResourcesService" version="1.0.0"/>
+	<dubbo:reference id="certifiedService"  interface="com.ginkgocap.tongren.organization.certified.service.CertifiedService" version="1.0.0"/>
+	<dubbo:reference id="organizationDepService" interface="com.ginkgocap.tongren.organization.manage.service.OrganizationDepService" timeout="5000" version="1.0.0"/>
+	<dubbo:reference id="organizationDepMemberService" interface="com.ginkgocap.tongren.organization.manage.service.OrganizationDepMemberService" timeout="5000" version="1.0.0"/>
+	<dubbo:reference id="assignTaskService" interface="com.ginkgocap.tongren.project.task.service.AssignTaskService" timeout="5000" version="1.0.0"/>
+	<dubbo:reference id="projectTaskService" interface="com.ginkgocap.tongren.project.task.service.ProjectTaskService" timeout="30000" version="1.0.0"/>
+	<dubbo:reference id="projectService" interface="com.ginkgocap.tongren.project.manage.service.ProjectService" timeout="5000" version="1.0.0"/>
+	<dubbo:reference id="publishService" interface="com.ginkgocap.tongren.project.manage.service.PublishService" timeout="5000" version="1.0.0"/>
+	<dubbo:reference id="applyService"   interface="com.ginkgocap.tongren.project.manage.service.ApplyService"   timeout="5000" version="1.0.0"/>
+	<dubbo:reference id="operationService"   interface="com.ginkgocap.tongren.project.manage.service.OperationService"   timeout="5000" version="1.0.0"/>
+	<dubbo:reference id="tongRenSendMessageService"   interface="com.ginkgocap.tongren.organization.message.service.TongRenSendMessageService"   timeout="5000" version="1.0.0"/>
+	<dubbo:reference id="undertakenService"   interface="com.ginkgocap.tongren.project.manage.service.UndertakenService"   timeout="5000" version="1.0.0"/>
+	<dubbo:reference id="tongRenMessageProcessingService"   interface="com.ginkgocap.tongren.organization.message.service.TongRenMessageProcessingService"   timeout="5000" version="1.0.0"/>
+	<dubbo:reference id="abortedService" interface="com.ginkgocap.tongren.project.manage.service.AbortedService" timeout="5000" version="1.0.0"/>
+	<dubbo:reference id="rocketmqSendService" interface="com.ginkgocap.tongren.common.JmsSendService" timeout="5000" version="1.0.0"/>
+	<dubbo:reference id="projectResourceAttachmentService" interface="com.ginkgocap.tongren.project.manage.service.ProjectResourceAttachmentService" timeout="5000" version="1.0.0"/>
+	<dubbo:reference id="organizationTypeService" interface="com.ginkgocap.tongren.organization.manage.service.OrganizationTypeService" timeout="5000" version="1.0.0"/>
+	<dubbo:reference id="documentCatalogueService" interface="com.ginkgocap.tongren.organization.document.service.DocumentCatalogueService" timeout="30000" version="1.0.0"/>
+	<dubbo:reference id="configService" interface="com.ginkgocap.tongren.common.ConfigService" timeout="5000" version="1.0.0"/>
+	<dubbo:reference id="documentTagsService" interface="com.ginkgocap.tongren.organization.document.service.DocumentTagsService" timeout="5000" version="1.0.0"/>
+	<dubbo:reference id="thirdServiceWarp" interface="com.ginkgocap.tongren.warpservice.ThirdServiceWarp" timeout="5000" version="1.0.0"/>
+	<dubbo:reference id="organizationPersonsimpleService" interface="com.ginkgocap.tongren.organization.manage.service.OrganizationPersonsimpleService" timeout="5000" version="1.0.0"/>
+	<dubbo:reference id="organizationKnowledgeService" interface="com.ginkgocap.tongren.organization.manage.service.OrganizationKnowledgeService" timeout="5000" version="1.0.0"/>
+	<dubbo:reference id="resourcesRelatedService" interface="com.ginkgocap.tongren.organization.resources.service.ResourcesRelatedService" timeout="5000" version="1.0.0"/>
+	<dubbo:reference id="resourcesRelatedDetailService" interface="com.ginkgocap.tongren.organization.resources.service.ResourcesRelatedDetailService" timeout="5000" version="1.0.0"/>
+</beans>

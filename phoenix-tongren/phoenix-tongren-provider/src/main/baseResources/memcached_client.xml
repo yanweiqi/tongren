@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+      <cache>
+          <!-- 
+          <datasource name="default" timeout="500" port="11210" server="192.168.120.135" maxActive="2" maxIdle="2" maxWait="-1"/>
+      	  <datasource name="object"  timeout="500" port="11210" server="192.168.120.135" maxActive="2" maxIdle="2" maxWait="-1"/>
+      	   -->
+      	   
+      	  <datasource name="object1" timeout="${tongren.memcathed.timeout}" port="${tongren.memcathed.port1}" server="${tongren.memcathed.host}" maxActive="${tongren.memcathed.maxActive}" maxIdle="${tongren.memcathed.maxIdle}" maxWait="${tongren.memcathed.maxWait}"/>
+      	  <datasource name="object2" timeout="${tongren.memcathed.timeout}" port="${tongren.memcathed.port2}" server="${tongren.memcathed.host}" maxActive="${tongren.memcathed.maxActive}" maxIdle="${tongren.memcathed.maxIdle}" maxWait="${tongren.memcathed.maxWait}"/>
+      </cache>
+
+      <regions>
+
+      	  <region name="com.ginkgocap.tongren.organization.application.model.Module"  listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="false" >
+          	  <keyPattern value="[02468]$" datasource="object1" />
+          	  <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+
+          <region name="VctlUser_Map_userId_passport"  listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="true" limitLen="100000">
+              <keyPattern value="[0-9A-Za-z]$" datasource="object"/>
+          </region>
+        
+          <region name="User_List_userId_gender"  listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="true" limitLen="100000">
+              <keyPattern value="[02468]$" datasource="object1" />
+              <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          
+          <region name="com.ginkgocap.tongren.project.manage.model.Project"  listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="false" limitLen="100000">
+              <keyPattern value="[02468]$" datasource="object1" />
+              <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          
+          <region name="com.ginkgocap.tongren.project.manage.model.Publish"  listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="false" limitLen="100000">
+              <keyPattern value="[02468]$" datasource="object1" />
+              <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          
+            <region name="publish_list_publisherId"    listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="false" limitLen="100000">
+              <keyPattern value="[02468]$" datasource="object1" />
+              <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+            <region name="publish_list_publisherId_status"    listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="false" limitLen="100000">
+              <keyPattern value="[02468]$" datasource="object1" />
+              <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          
+          
+       	  <region name="com.ginkgocap.tongren.project.manage.model.Apply"    listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="false" limitLen="100000">
+              <keyPattern value="[02468]$" datasource="object1" />
+              <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          
+          <!-- 创建组织相关 -->
+          <region name="organizationAuthority_map_authorityName"    listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="true" limitLen="100000">
+              <keyPattern value="[02468]$" datasource="object1" />
+              <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          <!-- 创建组织相关 -->
+          
+          <!-- 承接项目开始 -->
+          <region name="com.ginkgocap.tongren.project.manage.model.Undertaken"    listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="false" limitLen="100000">
+              <keyPattern value="[02468]$" datasource="object1" />
+              <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+           <region name="Undertaken_By_ProjectId"    listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="true" limitLen="100000">
+              <keyPattern value="[02468]$" datasource="object1" />
+              <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          <region name="Undertaken_List_By_RecipientIdAndStatus"    listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="true" limitLen="100000">
+              <keyPattern value="[02468]$" datasource="object1" />
+              <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          <region name="Undertaken_List_By_RecipientId"    listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="false" limitLen="100000">
+              <keyPattern value="[02468]$" datasource="object1" />
+              <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          <region name="Undertaken_list_status"    listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="false" limitLen="100000">
+              <keyPattern value="[02468]$" datasource="object1" />
+              <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+         <!--  
+          <region name="Undertaken_list_status_organizationId"    listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="false" limitLen="100000">
+              <keyPattern value="[02468]$" datasource="object1" />
+              <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          -->
+          <!-- 承接项目结束 -->
+          <!-- 消息开始 -->
+          <region name="com.ginkgocap.tongren.organization.message.model.MessageCreate"    listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="false" limitLen="100000">
+              <keyPattern value="[02468]$" datasource="object1" />
+              <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+           <region name="com.ginkgocap.tongren.organization.message.model.MessageSend"    listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="false" limitLen="100000">
+              <keyPattern value="[02468]$" datasource="object1" />
+              <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+           <region name="com.ginkgocap.tongren.organization.message.model.MessageReceive"    listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="false" limitLen="100000">
+              <keyPattern value="[02468]$" datasource="object1" />
+              <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          <!--  bug 346缓存导致数据库已删除 但是缓存依然存在
+          <region name="MessageReceive_List_userid_id"    listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="false" limitLen="100000">
+              <keyPattern value="[02468]$" datasource="object1" />
+              <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+           -->
+          <region name="MessageReceive_List_userid_orgid_id"    listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="true" limitLen="100000">
+              <keyPattern value="[02468]$" datasource="object1" />
+              <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          <region name="MessageReceive_List_messageId"    listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="true" limitLen="100000">
+              <keyPattern value="[02468]$" datasource="object1" />
+              <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          <region name="MessageSend_List_messageId"    listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="true" limitLen="100000">
+              <keyPattern value="[02468]$" datasource="object1" />
+              <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+         <!-- 
+          <region name="MessageCreate_List_projectId"    listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="true" limitLen="100000">
+              <keyPattern value="[02468]$" datasource="object1" />
+              <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+           -->
+          <region name="MessageCreate_List_projectId_createId_messageType"    listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="true" limitLen="100000">
+              <keyPattern value="[02468]$" datasource="object1" />
+              <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          <!-- 消息结束 -->
+            <!-- 项目任务 开始 -->
+          <region name="com.ginkgocap.tongren.project.task.model.Task"  listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="false" >
+          	  <keyPattern value="[02468]$" datasource="object1" />
+          	  <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          <region name="task_list_projectUndertakenId"    listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="true" limitLen="10000">
+              <keyPattern value="[02468]$" datasource="object1" />
+              <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          <region name="task_list_taskPid"    listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="true" limitLen="10000">
+              <keyPattern value="[02468]$" datasource="object1" />
+              <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          <!-- 
+          <region name="task_list_taskType"    listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="true" limitLen="10000">
+              <keyPattern value="[02468]$" datasource="object1" />
+              <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          -->
+          <region name="task_list_createTime"    listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="true" limitLen="10000">
+              <keyPattern value="[02468]$" datasource="object1" />
+              <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          <region name="task_list_organizationId_createTime"    listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="true" limitLen="10000">
+              <keyPattern value="[02468]$" datasource="object1" />
+              <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          
+            <!-- 项目任务 结束 -->
+            
+          <!-- 项目任务 分配 开始 -->
+          <region name="com.ginkgocap.tongren.project.task.model.AssignTask"  listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="false" >
+          	  <keyPattern value="[02468]$" datasource="object1" />
+          	  <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+            <region name="assignTask_list_projectTaskId"    listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="true" limitLen="10000">
+              <keyPattern value="[02468]$" datasource="object1" />
+              <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+           <region name="assignTask_list_projectTaskId_performerId"    listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="true" limitLen="10000">
+              <keyPattern value="[02468]$" datasource="object1" />
+              <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+           <region name="assignTask_list_projectTaskId_assignerId"    listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="true" limitLen="10000">
+              <keyPattern value="[02468]$" datasource="object1" />
+              <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          <region name="assignTask_list_organizationId_performerId"    listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="true" limitLen="10000">
+              <keyPattern value="[02468]$" datasource="object1" />
+              <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+            <!-- 项目任务分配  结束 -->
+            
+          <!-- mq消息发送 开始 
+           <region name="com.ginkgocap.tongren.common.model.MqmsgSendrecord"  listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="false" >
+          	  <keyPattern value="[02468]$" datasource="object1" />
+          	  <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+            <region name="MqmsgSendrecord_list_sendStatus"    listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="true" limitLen="10000">
+              <keyPattern value="[02468]$" datasource="object1" />
+              <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          -->
+          <!-- mq消息发送 结束 -->
+          <!-- 考勤记录 开始  -->
+            <region name="com.ginkgocap.tongren.organization.attendance.model.AttendanceRecords"  listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="false" >
+          	  <keyPattern value="[02468]$" datasource="object1" />
+          	  <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+           <region name="attendanceRecords_list_userId_date"    listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="true" limitLen="10000">
+              <keyPattern value="[02468]$" datasource="object1" />
+              <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          <!--
+           <region name="attendanceRecords_list_userId_date_date"    listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="true" limitLen="10000">
+              <keyPattern value="[02468]$" datasource="object1" />
+              <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+            -->
+         <!-- 考勤记录 结束  -->
+         <!-- 组织认证 开始 -->
+          <region name="com.ginkgocap.tongren.organization.certified.model.Certified"  listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="false" >
+          	  <keyPattern value="[02468]$" datasource="object1" />
+          	  <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+           <region name="certified_list_organizationId"    listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="true" limitLen="10000">
+              <keyPattern value="[02468]$" datasource="object1" />
+              <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+         <!-- 组织认证 结束 -->
+         <!-- 我的本地资源开始 -->
+         <region name="com.ginkgocap.tongren.organization.resources.model.LocalObject"  listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="false" >
+          	  <keyPattern value="[02468]$" datasource="object1" />
+          	  <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          <region name="LOCALOBJECT_LIST_ORGANIZATIONID_CREATEID"  listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="true" >
+          	  <keyPattern value="[02468]$" datasource="object1" />
+          	  <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          <region name="LOCALOBJECT_LIST_CREATEID"  listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="true" >
+          	  <keyPattern value="[02468]$" datasource="object1" />
+          	  <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          <!-- 我的本地资源结束 -->
+          <!-- 我的组织资源开始 -->
+          <region name="com.ginkgocap.tongren.organization.resources.model.OrganizationObject"  listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="false" >
+          	  <keyPattern value="[02468]$" datasource="object1" />
+          	  <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          <region name="ORGANIZATIONOBJECT_LIST_ORGANIZATIONID_PROJECTID"  listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="true" >
+          	  <keyPattern value="[02468]$" datasource="object1" />
+          	  <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          <region name="ORGANIZATIONOBJECT_LIST_ORGANIZATIONID"  listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="true" >
+          	  <keyPattern value="[02468]$" datasource="object1" />
+          	  <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          <!-- 我的组织资源结束-->
+          <!-- 项目附件开始 -->
+          <region name="com.ginkgocap.tongren.project.manage.model.ResourceAttachment"  listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="false" >
+          	  <keyPattern value="[02468]$" datasource="object1" />
+          	  <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+           <region name="ResourceAttachment_List_ProjectId"  listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="false" >
+          	  <keyPattern value="[02468]$" datasource="object1" />
+          	  <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          <!-- 项目附件结束 -->
+          <!-- 组织开始 -->
+          <region name="com.ginkgocap.tongren.organization.manage.model.Organization"  listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="flase" >
+          	  <keyPattern value="[02468]$" datasource="object1" />
+          	  <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          <region name="OrganizationId_List_userId_status"  listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="true" >
+          	  <keyPattern value="[02468]$" datasource="object1" />
+          	  <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          <region name="com.ginkgocap.tongren.organization.manage.model.OrganizationMember"  listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="false" >
+          	  <keyPattern value="[02468]$" datasource="object1" />
+          	  <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          <region name="OrganizationMember_List_organizationId"  listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="true" >
+          	  <keyPattern value="[02468]$" datasource="object1" />
+          	  <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          <region name="OrganizationMember_Map_useridAndOrganid"  listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="true" >
+          	  <keyPattern value="[02468]$" datasource="object1" />
+          	  <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          <region name="Organization_List_createrId_status"  listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="true" >
+          	  <keyPattern value="[02468]$" datasource="object1" />
+          	  <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          <region name="Organization_List_status"  listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="true" >
+          	  <keyPattern value="[02468]$" datasource="object1" />
+          	  <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          <region name="Organization_List_Name"  listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="true" >
+          	  <keyPattern value="[02468]$" datasource="object1" />
+          	  <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          <!-- 组织结束 -->
+          <!-- 设置角色开始 -->
+             <region name="com.ginkgocap.tongren.organization.manage.model.OrganizationMemberRole"  listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="flase" >
+          	  <keyPattern value="[02468]$" datasource="object1" />
+          	  <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+           <region name="OrganizationMemberRole_list_memberId_organizationId2"  listenerClass="com.ginkgocap.ywxt.framework.dal.cache.listener.DefaultListenerImpl" strategyClass="com.ginkgocap.ywxt.framework.dal.cache.memcached.route.strategy.DefaultStrategy" localCache="false" >
+          	  <keyPattern value="[02468]$" datasource="object1" />
+          	  <keyPattern value="[13579]$" datasource="object2" />
+          </region>
+          <!-- 设置角色结束 -->
+      </regions>
+</root>
+

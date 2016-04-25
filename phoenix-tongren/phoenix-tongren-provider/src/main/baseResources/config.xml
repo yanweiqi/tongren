@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- 配置只允许有两个层级 -->
+<root>
+	<fileconfig>
+		<item key="REMOVE_FILE_ROOT_PATH" value="${tongren.file.remove_file_root_path}" />
+		<item key="FILE_ENCODING" value="${tongren.file.file_encoding}" />
+		<item key="FTP_USER_NAME" value="${tongren.file.ftp_user_name}" />
+		<item key="FTP_PASSWORD" value="${tongren.file.ftp_password}" />
+		<item key="FTP_IP" value="${tongren.file.ftp_ip}" />
+		<item key="FTP_URL" value="${tongren.file.ftp_url}" />
+		<item key="FTP_PORT" value="${tongren.file.ftp_port}" />
+		<item key="ENCODING" value="${tongren.file.encoding}" />
+		<item key="DOWNLOAD_PATH" value="${tongren.file.download_path}" />
+		<item key="BIG_IMG_WEIGHT" value="800" />
+		<item key="BIG_IMG_HEIGHT" value="800" />
+		<item key="MID_IMG_WEIGHT" value="500" />
+		<item key="MID_IMG_HEIGHT" value="500" />
+		<item key="SM_IMG_WEIGHT" value="100" />
+		<item key="SM_IMG_HEIGHT" value="100" />
+		<item key="MM_IMG_WEIGHT" value="50" />
+		<item key="MM_IMG_HEIGHT" value="50" />
+		<item key="IMG_MAX_SIZE" value="2097152" />
+		<item key="IMG_MAX_HEIGHT" value="5000" />
+		<item key="IMG_MAX_WIDTH" value="4000" />
+		<item key="FTP_WEB" value="http://" />
+		<item key="FTP_FULL_URL" value="${tongren.file.ftp_full_url}" />
+		<item key="openofficeurl" value="${tongren.file.openofficeurl}" />
+		<item key="tongren.related.url" value="${tongren.related.url}" />
+	</fileconfig>
+</root>
+

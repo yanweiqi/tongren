@@ -1,0 +1,663 @@
+<?xml version="1.0" encoding="GB2312"?>
+<dal>
+    
+	<default>
+		<dbStrategy name="" clazz="com.lenovo.vctl.dal.dao.route.strategy.DefaultStrategy">
+			<pattern value="[0-9]$" group="g2" />
+		</dbStrategy>
+		<listenerClass className="" />
+		<idCenterDS ds="idCenterDS" />   <!-- 缺省IdCenter使用的数据源配置 -->
+	</default>
+		
+	<route>
+		<!-- 在一个侦听器中实现before after -->
+		<!-- 桐人模块 -->
+		<object name="com.ginkgocap.tongren.organization.application.model.Module" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="createId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+
+			<map name="VctlUser_Map_userId_passport"
+                 sqlitem="select user_id from vctl_user where passport=?"
+                 keyProperty="passport" valueProperty="userId" />
+			 
+			 <list name="Module_List_createId_id"
+                  sqlitem="select id from tb_organization_module where creater_id =? order by create_time desc"
+                  sqlType="hsql" keyProperty="createrId" valueProperty="id"  update="false"/>
+		</object>
+		
+		<!-- 组织应用模块 -->
+		<object name="com.ginkgocap.tongren.organization.application.model.OrganizationModuleApplication" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="createId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+			 
+			<list name="ModuleApplication_List_organization_id"
+                  sqlitem="select id from tb_organization_module_application where organization_id =? order by create_time desc"
+                  sqlType="hsql" keyProperty="organizationId" valueProperty="id"  update="false"/>
+		</object>		
+				
+		<!-- 组织权限对象-->
+		<object name="com.ginkgocap.tongren.organization.authority.model.OrganizationAuthority" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="organizationAuthorityId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+			
+			<map name="organizationAuthority_map_authorityNo"
+                  sqlitem="select id from tb_organization_authority where authority_no = ?"
+                  sqlType="hsql" keyProperty="authorityNo" valueProperty="id"  update="false"/>
+                  
+        	<map name="organizationAuthority_map_authorityName"
+                  sqlitem="select id from tb_organization_authority where authority_name = ?"
+                  sqlType="hsql" keyProperty="authorityName" valueProperty="id"  update="false"/>
+                  
+            <list name="organizationAuthority_default_List_organizationId"
+                  sqlitem="select id from tb_organization_authority where organization_id = ? order by authority_no"
+                  sqlType="hsql" keyProperty="organizationId" valueProperty="id"  update="false"/>      
+                        
+		</object>
+		<!-- 组织知识 -->
+		<object name="com.ginkgocap.tongren.organization.manage.model.OrganizationKd" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="OrganizationKdId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+			<map name="OrganizationKd_knowledgeId_orgId"
+                 sqlitem="select id from tb_organization_knowledge where knowledge_id =? and organization_id =?"
+                  sqlType="hsql" keyProperty="knowledgeId,organizaitonId" valueProperty="id" update="false"/>  
+		</object>
+		<!-- 组织人脉 -->
+		<object name="com.ginkgocap.tongren.organization.manage.model.OrganizationPs" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="OrganizationPsId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+			<map name="OrganizationPs_personId_orgId"
+                 sqlitem="select id from tb_organization_personsimple where person_id =? and organization_id =?"
+                  sqlType="hsql"  keyProperty="personId,organizaitonId" valueProperty="id" update="false"/>    
+		</object>
+		
+		
+		<!-- 组织对象 -->
+		<object name="com.ginkgocap.tongren.organization.manage.model.Organization" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="organizationId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+			<list name="Organization_List_createrId_status"
+                  sqlitem="select id from tb_organization where create_id = ? and status = ?"
+                  sqlType="hsql" keyProperty="createrId,status" valueProperty="id"  update="false"/>
+            <list name="Organization_List_status"
+                  sqlitem="select id from tb_organization where status = ? order by create_time desc"
+                  sqlType="hsql" keyProperty="status" valueProperty="id" update="false"/>
+            <list name="Organization_List_Name"
+                  sqlitem="select id from tb_organization where name = ?  "
+                  sqlType="hsql" keyProperty="name" valueProperty="id" update="false"/>
+            <list name="organization_List_PerformSize"
+                  sqlitem="select id from tb_organization where status = ? order by perform_size desc "
+                  sqlType="hsql" keyProperty="status" valueProperty="id" update="false"/>  
+            <list name="organization_List_Name_Spell"
+                  sqlitem="select id from tb_organization where (lower(name)  like ? or name_spelling like ?) and status=?"
+                  sqlType="hsql" keyProperty="name,nameSpelling" valueProperty="id" update="false"/>  
+             <list name="organization_List_Spell"
+                  sqlitem="select id from tb_organization where name_spelling is null or name_spelling=?"
+                  sqlType="hsql" keyProperty="name_spelling" valueProperty="id" update="false"/>                  
+		</object>
+		
+		<!-- 组织成员 -->
+		<object name="com.ginkgocap.tongren.organization.manage.model.OrganizationMember" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="organizationMemberId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+                  
+            <list name="OrganizationMember_List_organizationId_status"
+                  sqlitem="select id from tb_organization_member where  organization_id =? and status = ? order by apply_time desc"
+                  sqlType="hsql" keyProperty="organizationId,status" valueProperty="id"  update="false"/>
+          
+            <list name="OrganizationMember_List_userId"
+                  sqlitem="select id from tb_organization_member where user_id = ?"
+                  sqlType="hsql" keyProperty="userId" valueProperty="id"  update="false"/>
+                         
+            <list name="OrganizationId_List_userId_status"
+                  sqlitem="select id from tb_organization_member where user_id =?"
+                  sqlType="hsql" keyProperty="userId" valueProperty="id"  update="false"/>     
+                  
+             <list name="OrganizationMember_List_organizationId"
+                  sqlitem="select id from tb_organization_member where organization_id =? "
+                  sqlType="hsql" keyProperty="organizationId" valueProperty="id"  update="true"/>  
+                  
+             <map name="OrganizationMember_Map_useridAndOrganid"
+                 sqlitem="select id from tb_organization_member where organization_id =? and user_id =?"
+                 keyProperty="organizationId,userId" valueProperty="id" update="false"/> 
+             <list name="OrganizationMember_List_organizationId_notStatus"
+                  sqlitem="select id from tb_organization_member where  organization_id =? and status != 1 order by apply_time desc"
+                  sqlType="hsql" keyProperty="organizationId,status" valueProperty="id"  update="false"/>    
+                 
+                    
+			
+		</object>
+		
+		<!-- 组织部门对象 -->
+		<object name="com.ginkgocap.tongren.organization.manage.model.OrganizationDep" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="organizationDepId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+			<list name="organizationDep_List_organizationId"
+                  sqlitem="select id from tb_organization_department where organization_id = ?"
+                  sqlType="hsql" keyProperty="organizationId" valueProperty="id"  update="false"/>
+            
+            <map name="organizationDep_map_organizationId_depName_pid"
+                  sqlitem="select id from tb_organization_department where organization_id = ? and dep_name = ? and pid = ?"
+                  sqlType="hsql" keyProperty="organizationId,depName,pid" valueProperty="id"  update="false"/> 
+            
+            <list name="organizationDep_list_pid"
+                  sqlitem="select id from tb_organization_department where pid = ?"
+                  sqlType="hsql" keyProperty="pid" valueProperty="id"  update="false"/>       
+                     
+		</object>
+		
+		<!-- 组织部门成员对象 -->
+		<object name="com.ginkgocap.tongren.organization.manage.model.OrganizationDepMember" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="organizationDepMemberId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+			
+            <map name="organizationDepMember_map_organizationId_departmentId_organizationMemberId"
+                  sqlitem="select id from tb_organization_department_member where organization_id=? and department_id=? and organization_member_id=?"
+                  sqlType="hsql" keyProperty="organizationId,depId,organizationMemberId" valueProperty="id"  update="false"/>    
+                  
+            <list name="organizationDepMember_list_organizationId_depId"
+                  sqlitem="select id from tb_organization_department_member where organization_id = ? and department_id = ? "
+                  sqlType="hsql" keyProperty="organizationId,depId" valueProperty="id"  update="false"/>    
+            
+            <list name="organizationDepMember_list_organizationId"
+                  sqlitem="select id from tb_organization_department_member where organization_id = ? "
+                  sqlType="hsql" keyProperty="organizationId" valueProperty="id"  update="false"/>  
+                  
+            <map name="organizationDepMember_map_organizationId_memberId"
+                  sqlitem="select id from tb_organization_department_member where organization_id = ? and organization_member_id = ? "
+                  sqlType="hsql" keyProperty="organizationId,organizationMemberId" valueProperty="id"  update="false"/>                 
+                  
+		</object>	
+				
+		<!-- 项目对象 -->
+		<object name="com.ginkgocap.tongren.project.manage.model.Project" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="createrId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+			
+			<list name="project_list_status"
+                  sqlitem="select id from tb_project where status = ? "
+                  sqlType="hsql" keyProperty="status" valueProperty="id"  update="false"/>    
+
+			<list name="project_list_createrId_status"
+                  sqlitem="select id from tb_project where create_id = ? and status = ? "
+                  sqlType="hsql" keyProperty="createrId,status" valueProperty="id"  update="false"/>      
+                  
+			<list name="project_list_createrId"
+                  sqlitem="select id from tb_project where create_id = ? "
+                  sqlType="hsql" keyProperty="createrId" valueProperty="id"  update="false"/>     
+                  
+            <map name="project_map_name_createrId_organizationId"
+                  sqlitem="select id from tb_project where name = ? and create_id = ? and organization_id = ?"
+                  sqlType="hsql" keyProperty="name,createrId,organizationId" valueProperty="id"  update="false"/>    
+                  
+             <list name="project_list_industry"
+                  sqlitem="select id from tb_project where industry = ? and date_format(create_time,'%Y%m') = ? "
+                  sqlType="hsql" keyProperty="industry,createTime" valueProperty="id"  update="false"/>          
+                  
+             <list name="project_list_area"
+                  sqlitem="select id from tb_project where area = ? and date_format(create_time,'%Y%m') = ? "
+                  sqlType="hsql" keyProperty="area,createTime" valueProperty="id"  update="false"/>  
+                  
+             <list name="project_list_industry_area"
+                  sqlitem="select id from tb_project where industry = ? and area = ? and date_format(create_time,'%Y%m') = ? "
+                  sqlType="hsql" keyProperty="industry,area,createTime" valueProperty="id"  update="false"/>        
+                                                    
+             <list name="project_list_organizationId"
+                  sqlitem="select id from tb_project where organization_id = ? "
+                  sqlType="hsql" keyProperty="organizationId" valueProperty="id"  update="false"/>      
+                 
+                  
+		</object>
+		
+		<!-- 项目发布对象 -->
+		<object name="com.ginkgocap.tongren.project.manage.model.Publish" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="publisherId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+			
+			<list name="publish_list_status"
+                  sqlitem="select id from tb_project_publish where status = ? and end_date >= now() order by id desc"
+                  sqlType="hsql" keyProperty="status" valueProperty="id"  update="false"/> 
+            
+            <list name="publish_list_checkIsExpire"
+                  sqlitem="select id from tb_project_publish where status = ? and DATEDIFF(now(),end_date) >= 1  order by id"
+                  sqlType="hsql" keyProperty="status,endDate" valueProperty="id"  update="false"/>    
+           
+            <map name="publish_map_projectId"
+                  sqlitem="select id from tb_project_publish where project_id = ?"
+                  sqlType="hsql" keyProperty="projectId" valueProperty="id"  update="false"/>      
+
+			<list name="publish_list_publisherId_status"
+                  sqlitem="select id from tb_project_publish where publisher_id = ? and status = ? order by id desc"
+                  sqlType="hsql" keyProperty="publisherId,status" valueProperty="id"  update="true"/>    
+            
+            <list name="publish_list_publisherId"
+                  sqlitem="select id from tb_project_publish where publisher_id = ? order by id desc"
+                  sqlType="hsql" keyProperty="publisherId" valueProperty="id"  update="true"/>                            
+		</object>
+		
+		<!-- 项目申请对象 -->
+		<object name="com.ginkgocap.tongren.project.manage.model.Apply" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="proposerId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+			
+			<list name="apply_list_reviewerId_projectId_status"
+                  sqlitem="select id from tb_project_apply where reviewer_id = ? and project_id = ? and status =? "
+                  sqlType="hsql" keyProperty="reviewerId,projectId,status" valueProperty="id"  update="false"/>  
+
+			<list name="apply_list_reviewerId_projectId"
+                  sqlitem="select id from tb_project_apply where reviewer_id = ? and project_id = ? "
+                  sqlType="hsql" keyProperty="reviewerId,projectId" valueProperty="id"  update="false"/>                    
+			
+			<map name="apply_map_reviewerId_projectId_status_proposerId_organizationId"
+                  sqlitem="select id from tb_project_apply where reviewer_id = ? and project_id = ? and status =? and proposer_id = ? and organization_id = ?"
+                  sqlType="hsql" keyProperty="reviewerId,projectId,status,proposerId,organizationId" valueProperty="id"  update="false"/>
+             
+     		<list name="apply_list_projectId_status"
+                  sqlitem="select id from tb_project_apply where project_id = ? and status =? "
+                  sqlType="hsql" keyProperty="projectId,status" valueProperty="id"  update="false"/>         
+            
+            <list name="apply_list_projectId"
+                  sqlitem="select id from tb_project_apply where project_id = ?"
+                  sqlType="hsql" keyProperty="projectId,status" valueProperty="id"  update="false"/>   
+           
+        	<list name="apply_list_reviewerId_status"
+                  sqlitem="select id from tb_project_apply where reviewer_id = ? and status =? order by id desc"
+                  sqlType="hsql" keyProperty="reviewerId,status" valueProperty="id"  update="false"/>
+                  
+        	<list name="apply_list_proposerId_status"
+                  sqlitem="select id from tb_project_apply where proposer_id = ? order by id desc"
+                  sqlType="hsql" keyProperty="proposerId,status" valueProperty="id"  update="false"/>        
+                  
+            <list name="apply_list_reviewerId"
+                  sqlitem="select id from tb_project_apply where reviewer_id = ? order by id desc"
+                  sqlType="hsql" keyProperty="reviewerId" valueProperty="id"  update="false"/>                
+		</object>
+		
+		<!-- 消息对象 -->
+		<object name="com.ginkgocap.tongren.organization.message.model.MessageCreate" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="createId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+				<list name="MessageCreate_List_projectId"
+                  sqlitem="select id from tb_organization_message_create where project_id =? "
+                  sqlType="hsql" keyProperty="projectId" valueProperty="id"  update="false"/>
+                <list name="MessageCreate_List_projectId_createId_messageType"
+                  sqlitem="select id from tb_organization_message_create where project_id =? and create_id = ? and message_type = ? "
+                  sqlType="hsql" keyProperty="projectId,createId,messageType" valueProperty="id"  update="false"/>
+			
+		</object>
+		<!-- 消息发送对象 -->
+		<object name="com.ginkgocap.tongren.organization.message.model.MessageSend" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="createId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+				<map name="MessageSend_List_messageId"
+                  sqlitem="select id from tb_organization_message_send where message_id = ?"
+                  sqlType="hsql" keyProperty="messageId" valueProperty="id"  update="false"/>
+			
+		</object>
+		<!-- 消息接收对象 -->
+		<object name="com.ginkgocap.tongren.organization.message.model.MessageReceive" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="createId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+			<map name="MessageReceive_List_messageId"
+                  sqlitem="select id from tb_organization_message_receive where message_id = ?"
+                  sqlType="hsql" keyProperty="messageId" valueProperty="id"  update="false"/>
+			<list name="MessageReceive_List_userid_id"
+                  sqlitem="select id from tb_organization_message_receive where user_id =?  order by receive_time desc"
+                  sqlType="hsql" keyProperty="userId" valueProperty="id"  update="false"/>
+             <list name="MessageReceive_List_userid_orgid_id"
+                  sqlitem="select id from tb_organization_message_receive where user_id =? and organization_id = ? order by receive_time desc"
+                  sqlType="hsql" keyProperty="userId,organizationId" valueProperty="id"  update="true"/>
+              <list name="MessageReceive_List_userid_date"
+                  sqlitem="select id from tb_organization_message_receive where user_id =? and date_format(receive_time,'%Y%m') = ?"
+                  sqlType="hsql" keyProperty="userId" valueProperty="id"  update="false"/>     
+		</object>
+		
+		<!-- 组织成员角色 -->
+		<object name="com.ginkgocap.tongren.organization.manage.model.OrganizationRole" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="createId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+			<list name="organizationRole_List_id"
+                  sqlitem="select id from tb_organization_role where organization_id = ?"
+                  sqlType="hsql" keyProperty="organizationId" valueProperty="id"  update="false"/>
+                  
+            <map name="organizationRole_map_roleName_organizationId"
+                  sqlitem="select id from tb_organization_role where role_name = ? and organization_id=?"
+                  sqlType="hsql" keyProperty="roleName,organizationId" valueProperty="id"  update="false"/>                          
+                  
+		</object>
+		
+		<!-- 组织角色成员组对象 -->
+		<object name="com.ginkgocap.tongren.organization.manage.model.OrganizationMemberRole" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="createId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+			<list name="OrganizationMemberRole_list_memberId_organizationId"
+                  sqlitem="select role_id from tb_organization_member_role where organization_member_id = ? and organization_id=?"
+                  sqlType="hsql" keyProperty="organizationMemberId,organizationId" valueProperty="id"  update="false"/>
+                  
+            <list name="OrganizationMemberRole_list_memberId_organizationId2"
+                  sqlitem="select id from tb_organization_member_role where organization_member_id = ? and organization_id=?"
+                  sqlType="hsql" keyProperty="organizationMemberId,organizationId" valueProperty="id"  update="true"/>
+                  
+            <map name="organizationMemberRole_map_organizationId_roleId_memberId"
+                  sqlitem="select id from tb_organization_member_role where organization_id = ? and role_id = ? and organization_member_id=?"
+                  sqlType="hsql" keyProperty="organizationId,roleId,organizationMemberId" valueProperty="id"  update="false"/>  
+            <!-- 
+            <map name="organizationMemberRole_map_memberId_organizationId"
+                  sqlitem="select id from tb_organization_member_role where organization_member_id = ? and organization_id=? "
+                  sqlType="hsql" keyProperty="organizationMemberId,organizationId" valueProperty="id"  update="false"/>    
+            -->       
+            <list name="organizationMemberRole_list_organizationId_roleId"
+                  sqlitem="select id from tb_organization_member_role where organization_id = ? and role_id = ?"
+                  sqlType="hsql" keyProperty="organizationId,roleId" valueProperty="id"  update="false"/>          
+                  
+		</object>
+		
+		<!-- 审批流程对象-->
+		<object name="com.ginkgocap.tongren.organization.review.model.ReviewProcess" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="createId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+			<list name="ReviewProcess_List_orgId"
+                  sqlitem="select id from tb_organization_review_process where organization_id =?"
+                  keyProperty="organizationId" valueProperty="id"/> 
+			<map name="ReviewProcess_List_orgId_name"
+                  sqlitem="select id from tb_organization_review_process where organization_id =? and review_name = ?"
+                  keyProperty="organizationId,reviewName" valueProperty="id"/> 
+		</object>
+		
+		<!-- 审批流程类型对象-->
+		<object name="com.ginkgocap.tongren.organization.review.model.ReviewGenre" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="createId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+			<list name="reviewGenre_List_reviewId"
+                  sqlitem="select id from tb_organization_review_genre where pid = ?"
+                  sqlType="hsql" keyProperty="pid" valueProperty="id"  update="false"/>
+		</object>
+		
+		<!-- 审核人对象 -->
+		<object name="com.ginkgocap.tongren.organization.review.model.ReviewObject" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="createId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+			<list name="reviewObject_List_reviewId"
+                  sqlitem="select id from tb_organization_review_object where review_process = ? order by review_level"
+                  sqlType="hsql" keyProperty="reviewProcess" valueProperty="id"  update="false"/>
+		</object>
+		
+		<!-- 组织审核申请 -->
+		<object name="com.ginkgocap.tongren.organization.review.model.ReviewApplication" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="createId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+			<list name="ReviewApplication_List_OrganizationId_And_ApplyId"
+                  sqlitem="select id from tb_organization_review_application where organization_id = ? and apply_id = ? order by apply_date desc"
+                  sqlType="hsql" keyProperty="organizationId,applyId" valueProperty="id"  update="false"/>  
+		</object>
+		
+		<!-- 组织审核记录 -->
+		<object name="com.ginkgocap.tongren.organization.review.model.ReviewRecords" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="createId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+			<list name="ReviewRecords_List_ApplicationId"
+                  sqlitem="select id from tb_organization_review_records where application_id = ? order by id"
+                  sqlType="hsql" keyProperty="applicationId" valueProperty="id"  update="false"/>
+           <map name="ReviewRecords_List_ApplicationId_ReviewUserId"
+                  sqlitem="select id from tb_organization_review_records where application_id = ? and review_user_id =?"
+                  sqlType="hsql" keyProperty="applicationId,reviewUserId" valueProperty="id"  update="false"/>  
+          
+           <list name="ReviewRecords_List_ReviewUserId_organizationId"
+                  sqlitem="select id from tb_organization_review_records where review_user_id=? and organization_id=? and (review_status!=0 or is_review=1) order by id desc"
+                  sqlType="hsql" keyProperty="reviewUserId,organizationId" valueProperty="id"  update="true"/>      
+          
+          <list name="ReviewRecords_List_ReviewUserId_organizationId_reviewStatus"
+                  sqlitem="select id from tb_organization_review_records where review_user_id=? and organization_id=? and (review_status=0 and is_review=1) order by id desc"
+                  sqlType="hsql" keyProperty="reviewUserId,organizationId" valueProperty="id"  update="true"/>  
+         
+         <list name="ReviewRecords_List_ReviewUserId_organizationId_reviewStatus2"
+		         sqlitem="select id from tb_organization_review_records where review_user_id=? and organization_id=? and review_status!=0 order by id desc"
+		         sqlType="hsql" keyProperty="reviewUserId,organizationId" valueProperty="id"  update="true"/>     
+		  <list name="ReviewRecords_List_ReviewUserId_organizationId_reviewStatus3"
+		         sqlitem="select id from tb_organization_review_records where review_user_id=? and organization_id=? and (review_status!=2 or review_status!=3)"
+		         sqlType="hsql" keyProperty="reviewUserId,organizationId" valueProperty="id"  update="true"/>     
+		</object>
+		
+		<!-- 组织角色权限对象-->
+		<object name="com.ginkgocap.tongren.organization.authority.model.OrganizationRoleAuthority" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="createId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+			<list name="organizationRoleAuthority_list_roleId_organizationId"
+			     sqlitem="select authority_id from tb_organization_role_authority where role_id = ? and organization_id=?"
+			     sqlType="hsql" keyProperty="roleId,organizationId" valueProperty="id"  update="false"/>
+		</object>
+		
+		<!-- 考勤管理 开始 -->
+		<!-- 考勤配置 -->
+		<object name="com.ginkgocap.tongren.organization.attendance.model.AttendanceSystem" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="attendanceSystemId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+			
+			<list name="attendanceSystem_list_organizationId"
+                  sqlitem="select id from tb_organization_attendance_system where organization_id = ? ORDER BY create_time desc "
+                  sqlType="hsql" keyProperty="organizationId" valueProperty="id"  update="false"/>
+		</object>
+		<!-- 考勤详细信息 -->
+		<object name="com.ginkgocap.tongren.organization.attendance.model.AttendanceRecords" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="attendanceRecordsId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+			
+			<list name="attendanceRecords_list_userId_date"
+                  sqlitem="select id from tb_organization_attendance_records where user_id=? and DATEDIFF(date,?)=0 "
+                  sqlType="hsql" keyProperty="userId,date" valueProperty="id"  update="true" />
+  			<list name="attendanceRecords_list_userId_date_date"
+           			sqlitem="select id from tb_organization_attendance_records where user_id=? and date >=? and date &lt;= ? order by date ASC " 
+           			sqlType="hsql" keyProperty="userId,date,date" valueProperty="id"  update="true" />                  
+		</object>
+		
+		<!-- 考勤管理 结束 -->
+		<!-- 我的本地资源文件开始 -->
+		<object name="com.ginkgocap.tongren.organization.resources.model.LocalObject" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="createId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+			<list name="LOCALOBJECT_LIST_ORGANIZATIONID_CREATEID"
+           			sqlitem="select id from tb_resources_local_object where organization_id = ? and create_id = ? order by create_time desc" 
+           			sqlType="hsql" keyProperty="organizationId,createId" valueProperty="id"  update="false" />
+           <list name="LOCALOBJECT_LIST_CREATEID"
+           			sqlitem="select id from tb_resources_local_object where create_id = ? order by create_time desc" 
+           			sqlType="hsql" keyProperty="createId" valueProperty="id"  update="false" />
+		</object>
+		<!-- 我的本地资源文件结束-->	
+		<!-- 组织资源文件开始 -->
+		<object name="com.ginkgocap.tongren.organization.resources.model.OrganizationObject" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="createId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+			<list name="ORGANIZATIONOBJECT_LIST_ORGANIZATIONID_PROJECTID"
+           			sqlitem="select id from tb_resources_organization_object where organization_id = ? and project_id = ? order by create_time desc" 
+           			sqlType="hsql" keyProperty="organizationId,projectId" valueProperty="id"  update="false" />   
+            <list name="ORGANIZATIONOBJECT_LIST_ORGANIZATIONID"
+           			sqlitem="select id from tb_resources_organization_object where organization_id = ? order by create_time desc" 
+           			sqlType="hsql" keyProperty="organizationId" valueProperty="id"  update="false" />  
+		</object>
+		<!-- 组织资源文件结束 -->
+		<!-- 项目附件开始 -->
+		<object name="com.ginkgocap.tongren.project.manage.model.ResourceAttachment" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="createId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+			<list name="ResourceAttachment_List_ProjectId"
+                  sqlitem="select id from tb_project_resources_attachment where project_id=? order by create_time desc"
+                  sqlType="hsql" keyProperty="projectId" valueProperty="id"  update="true" />
+		</object>
+		<!-- 项目附件结束 -->
+		
+		<!-- 组织认证 开始 -->
+		<object name="com.ginkgocap.tongren.organization.certified.model.Certified" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="certifiedId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+			<list name="certified_list_organizationId"
+                  sqlitem="select id from tb_organization_certified where organization_id=? order by create_time desc"
+                  sqlType="hsql" keyProperty="organizationId" valueProperty="id"  update="true" />
+                  
+		</object>
+		<!-- 组织认证 结束 -->
+		<!-- 项目任务分配 开始 -->
+		<object name="com.ginkgocap.tongren.project.task.model.AssignTask" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="assignTaskId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+			<list name="assignTask_list_projectTaskId"
+                  sqlitem="select id from tb_project_assign_task where project_task_id = ? order by assign_time desc"
+                  sqlType="hsql" keyProperty="projectTaskId" valueProperty="id"  update="true" />
+                  
+             <list name="assignTask_list_projectTaskId_performerId"
+                  sqlitem="select id from tb_project_assign_task where project_task_id = ? and performer_id=?  order by assign_time desc"
+                  sqlType="hsql" keyProperty="projectTaskId,performerId" valueProperty="id"  update="true" />
+                  
+			<list name="assignTask_list_projectTaskId_assignerId"
+                  sqlitem="select id from tb_project_assign_task where project_task_id = ? and assigner_id=?  order by assign_time desc"
+                  sqlType="hsql" keyProperty="projectTaskId,assignerId" valueProperty="id"  update="true" />
+                  
+            <list name="assignTask_list_organizationId_performerId"
+                  sqlitem="select id from tb_project_assign_task where organization_id = ? and performer_id = ?"
+                  sqlType="hsql" keyProperty="organizationId,performerId" valueProperty="id"  update="true" />                   
+		</object>
+		<!-- 项目任务分配 结束 -->
+		
+		<!-- 项目任务 开始 -->
+			<object name="com.ginkgocap.tongren.project.task.model.Task" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="taskId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+			<list name="task_list_projectUndertakenId"
+                  sqlitem="select id from tb_project_task where project_undertaken_id=? and task_type=0 order by create_time asc"
+                  sqlType="hsql" keyProperty="projectUndertakenId" valueProperty="id"  update="true" />
+
+			<list name="task_list_taskPid"
+                  sqlitem="select id from tb_project_task where task_pid=? "
+                  sqlType="hsql" keyProperty="taskPid" valueProperty="id"  update="true" /> 
+            <list name="task_list_taskType"
+                  sqlitem="select id from tb_project_task where task_type=? and task_status in (0,1)"
+                  sqlType="hsql" keyProperty="taskType" valueProperty="id"  update="true" /> 
+            <list name="task_list_createTime"
+                  sqlitem="select id from tb_project_task where date_format(create_time,'%Y%m')  = ?"
+                  sqlType="hsql" keyProperty="queryDate" valueProperty="id"  update="true" />  
+             <list name="task_list_organizationId_createTime"
+                  sqlitem="select id from tb_project_task where organization_id=? and task_type=? and date_format(create_time,'%Y%m')  = ?"
+                  sqlType="hsql" keyProperty="organizationId,taskType,queryDate" valueProperty="id"  update="true" /> 
+             <list name="task_list_organizationId_count"
+                  sqlitem="select id from tb_project_task where organization_id=? and task_type=? and task_status!=9"
+                  sqlType="hsql" keyProperty="organizationId,taskType" valueProperty="id"  update="true" />                                
+		</object>
+		<!-- 项目任务 结束-->
+		<!-- 项目任务操作 开始 -->
+		<object name="com.ginkgocap.tongren.project.manage.model.Operation" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="certifiedId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+				<list name="operation_list_projectId"
+                  sqlitem="select id from tb_project_operation where project_id = ? order by operation_time desc"
+                  sqlType="hsql" keyProperty="projectId" valueProperty="id"  update="true" />
+                <list name="operation_list_taskId"
+                  sqlitem="select id from tb_project_operation where remark = ?"
+                  sqlType="hsql" keyProperty="remark" valueProperty="id"  update="true" />
+                <list name="operation_list_organizationTaskId"
+                  sqlitem="select id from tb_project_operation where organization_task_id = ?"
+                  sqlType="hsql" keyProperty="organizationTaskId" valueProperty="id"  update="true" />  
+		</object>
+		<!-- 项目任务操作 结束 -->
+		<!-- 项目承接 开始 -->
+		<object name="com.ginkgocap.tongren.project.manage.model.Undertaken" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="projectId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+			<map name="Undertaken_By_ProjectId"
+                  sqlitem="select id from tb_project_undertaken where project_id = ?"
+                  sqlType="hsql" keyProperty="projectId" valueProperty="id"  update="false"/>
+            <list name="Undertaken_List_By_RecipientIdAndStatus"
+                  sqlitem="select id from tb_project_undertaken where recipient_id = ? and status = ? order by start_time desc"
+                  sqlType="hsql" keyProperty="recipientId,status" valueProperty="id"  update="false" /> 
+            <list name="Undertaken_List_By_RecipientId"
+                  sqlitem="select id from tb_project_undertaken where recipient_id = ? order by start_time desc"
+                  sqlType="hsql" keyProperty="recipientId" valueProperty="id"  update="false" /> 
+            <list name="Undertaken_list_status"
+                  sqlitem="select id from tb_project_undertaken where status = ?"
+                  sqlType="hsql" keyProperty="status" valueProperty="id"  update="false" /> 
+            <list name="Undertaken_list_status_organizationId"
+                  sqlitem="select id from tb_project_undertaken where status = ? and recipient_organization_id = ?"
+                  sqlType="hsql" keyProperty="status,recipientOrganizationId" valueProperty="id"  update="false" /> 
+		</object>
+		<!-- 项目承接 结束 -->
+		
+		<!-- 项目完成交付 开始 -->
+		<object name="com.ginkgocap.tongren.project.manage.model.Delivery" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="projectId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+		</object>
+		<!-- 项目完成交付 结束 -->
+		
+		<!-- 项目失败 开始 -->
+		<object name="com.ginkgocap.tongren.project.manage.model.Aborted" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="projectId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+		</object>
+		<!-- 项目失败  结束 -->
+		<!-- mq消息发送记录 开始 -->
+		<object name="com.ginkgocap.tongren.common.model.MqmsgSendrecord" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="mqmsgSendrecordId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+			 <list name="MqmsgSendrecord_list_sendStatus"
+                  sqlitem="select id from tb_mq_msg_sendrecord where send_status !=? "
+                  sqlType="hsql" keyProperty="sendStatus" valueProperty="id"  update="false" /> 
+		</object>
+		<!-- mq消息发送记录 结束-->
+		<!-- 关联开始 开始 -->
+		<object name="com.ginkgocap.tongren.organization.resources.model.ResourcesRelated" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="resourcesRelatedId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+			 <list name="ResourcesRelated_list_resourceId"
+                  sqlitem="select id from tb_resources_related where resource_id =? and resource_source=?"
+                  sqlType="hsql" keyProperty="resourceId,resourceType" valueProperty="id"  update="false" /> 
+			<list name="ResourcesRelated_list_relateName"
+                  sqlitem="select id from tb_resources_related where related_name =? and user_id=? and resource_id=?"
+                  sqlType="hsql" keyProperty="relateName,userId,resourceId" valueProperty="id"  update="false" />                   
+		</object>
+		
+		<object name="com.ginkgocap.tongren.organization.resources.model.ResourcesRelatedDetail" listenerClass="com.ginkgocap.ywxt.framework.dal.dao.listener.DefaultListener" strategyProperty="resourcesRelatedDetailId">
+			<dbStrategy name="" clasz="com.ginkgocap.ywxt.framework.dal.dao.route.strategy.DefaultStrategy" useCRC32="false">
+				<pattern value="[.*]$" group="g1" />
+			</dbStrategy>
+			 <list name="ResourcesRelatedDetail_list_resourcesRelatedId"
+                  sqlitem="select id from tb_resources_related_detail where resource_related_id =?"
+                  sqlType="hsql" keyProperty="resourcesRelatedId" valueProperty="id"  update="false" /> 
+		</object>
+		<!-- 关联 结束-->
+	</route>
+</dal>
+
